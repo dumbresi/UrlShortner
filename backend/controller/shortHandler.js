@@ -1,15 +1,15 @@
-import UrlMap from "../model/urlModel"
-import {urlShortner } from "../helper/shortner.js"
+import UrlMap from "../model/urlModel.js"
+import urlShortner from "../helper/shortner.js"
 
 const shorten= async(req,res)=>{
     if(req.params==null){
         res.status(400).json("Bad url")
     }
-    const longUrl= req.params;
+    const longUrl= req.body.longUrl;
     const short=urlShortner(longUrl)
-    const shorturl=`http://localhost:${process.env.port}/tinyUrl/${short}`
+    const shorturl=`http://localhost:4000/tinyUrl/${short}`
     try {
-        const newMap = await UrlMap.create({short,longUrl})
+        const newMap = await UrlMap.create({shortUrl: short,longUrl})
         res.status(201).json(shorturl);
     } catch (error) {
         res.status(500).json(error)
@@ -20,8 +20,11 @@ const shorten= async(req,res)=>{
 const getLong= async(req,res)=>{
     const uuid=req.params.uuid;
     try {
-        const map= await UrlMap.findOne({where:{uuid}});
-        return map.longUrl
+        const map= await UrlMap.findOne({where:{shortUrl: uuid}});
+        if (!map) {
+            return res.status(404).json({ error: "Short URL not found" });
+        }
+        res.redirect(map.longUrl);
     } catch (error) {
         res.status(500).json(error)
     }

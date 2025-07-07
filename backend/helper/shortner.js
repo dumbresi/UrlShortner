@@ -1,5 +1,5 @@
 
-const crypto = require('crypto');
+import crypto from 'crypto'
 
 
 const urlShortner=(longUrl)=>{
@@ -7,4 +7,4 @@ const urlShortner=(longUrl)=>{
     return uuid;
 }
 
-export default {urlShortner}
+export default urlShortner

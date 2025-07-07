@@ -1,6 +1,5 @@
 import sequelize from '../db/db.js'
-
-const {DataTypes} = require('sequelize');
+import { DataTypes } from 'sequelize';
 
 const UrlMap=sequelize.define("UrlMap",{
     shortUrl: {
