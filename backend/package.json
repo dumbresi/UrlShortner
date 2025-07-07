@@ -11,6 +11,7 @@
     "Url",
     "Shortner"
   ],
+  "type": "module",
   "author": "Siddharth Dumbre",
   "license": "ISC",
   "dependencies": {
