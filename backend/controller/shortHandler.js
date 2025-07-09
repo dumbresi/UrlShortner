@@ -2,9 +2,6 @@ import UrlMap from "../model/urlModel.js"
 import urlShortner from "../helper/shortner.js"
 
 const shorten= async(req,res)=>{
-    if(req.params==null){
-        res.status(400).json("Bad url")
-    }
     const longUrl= req.body.longUrl;
     const short=urlShortner(longUrl)
     const shorturl=`http://localhost:4000/tinyUrl/${short}`
